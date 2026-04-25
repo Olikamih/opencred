@@ -4,8 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { TransactionsModule } from './transactions/transactions.module';
-import { Transaction } from './transactions/transaction.entity';
-import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -13,19 +11,30 @@ import { User } from './users/user.entity';
       isGlobal: true,
     }),
 
-   TypeOrmModule.forRootAsync({
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: (config: ConfigService) => ({
-    type: 'postgres',
-    url: config.get<string>('DATABASE_URL'),
-    autoLoadEntities: true,
-    synchronize: true,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  }),
-}),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        const databaseUrl = config.get<string>('DATABASE_URL');
+
+        console.log('🔥 DATABASE_URL:', databaseUrl);
+
+        // 👉 Se não tiver variável, para tudo (melhor erro do que conectar errado)
+        if (!databaseUrl) {
+          throw new Error('❌ DATABASE_URL não definida no Railway');
+        }
+
+        return {
+          type: 'postgres',
+          url: databaseUrl,
+          autoLoadEntities: true,
+          synchronize: true,
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        };
+      },
+    }),
 
     UsersModule,
     AuthModule,
