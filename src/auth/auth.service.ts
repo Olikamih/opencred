@@ -4,6 +4,8 @@ import { UsersService } from '../users/users.service';
 import { User } from '../users/user.entity';
 import * as bcrypt from 'bcrypt';
 
+type SafeUser = Omit<User, 'password'>;
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -11,47 +13,51 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<Omit<User, 'password'> | null> {
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<SafeUser | null> {
     const user = await this.usersService.findByEmail(email);
-    if (!user) return null;
 
-    // 🔹 Aceita qualquer hash bcrypt ($2a$, $2b$, $2y$)
-    if (/^\$2[aby]\$/.test(user.password)) {
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) return null;
-    } else {
-      // 🔹 Se ainda houver senha em texto puro
-      if (user.password !== password) return null;
+    if (!user) {
+      return null;
     }
 
-    const { password: _pwd, ...result } = user;
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return null;
+    }
+
+    const { password: _password, ...result } = user;
     return result;
   }
 
-  async login(user: Omit<User, 'password'>) {
-    // 🔹 Removido o 'role' do payload, afinal, somos todos autônomos no OpenCred!
-    const payload = { sub: user.id, email: user.email };
+  async login(user: SafeUser) {
+    const payload = {
+      sub: user.id,
+      email: user.email,
+    };
+
     return {
       access_token: this.jwtService.sign(payload),
       user,
     };
   }
 
-  async register(data: { email: string; password: string }) {
+  async register(data: Partial<User>) {
+    if (!data.email || !data.password) {
+      throw new UnauthorizedException('Email e senha são obrigatórios');
+    }
+
     const existing = await this.usersService.findByEmail(data.email);
+
     if (existing) {
       throw new UnauthorizedException('Usuário já existe');
     }
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const user = await this.usersService.create(data);
 
-    const user = await this.usersService.create({
-      ...data,
-      password: hashedPassword,
-      // 🔹 Removida a linha que forçava a criação de um 'role'
-    });
-
-    const { password, ...result } = user;
-    return result;
+    return user;
   }
 }

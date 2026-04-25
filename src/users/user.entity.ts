@@ -11,10 +11,8 @@ export class User {
   @Column()
   email!: string;
 
-  @Column({ default: '123456' })
+  @Column({ select: false })
   password!: string;
-
-  // --- NOVOS CAMPOS PARA O OPEN FINANCE ---
 
   @Column({ nullable: true })
   category!: string;
