@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/user.entity';
@@ -13,11 +17,14 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(
-    email: string,
-    password: string,
-  ): Promise<SafeUser | null> {
-    const user = await this.usersService.findByEmail(email);
+  async validateUser(email: string, password: string): Promise<SafeUser | null> {
+    if (!email || !password) {
+      return null;
+    }
+
+    const user = await this.usersService.findByEmail(
+      email.trim().toLowerCase(),
+    );
 
     if (!user) {
       return null;
@@ -29,8 +36,8 @@ export class AuthService {
       return null;
     }
 
-    const { password: _password, ...result } = user;
-    return result;
+    const { password: _password, ...safeUser } = user;
+    return safeUser;
   }
 
   async login(user: SafeUser) {
@@ -45,19 +52,38 @@ export class AuthService {
     };
   }
 
-  async register(data: Partial<User>) {
-    if (!data.email || !data.password) {
-      throw new UnauthorizedException('Email e senha são obrigatórios');
-    }
+ async register(data?: any) {
+  const body = data ?? {};
 
-    const existing = await this.usersService.findByEmail(data.email);
+  const full_name = String(body.full_name ?? '').trim();
+  const email = String(body.email ?? '').trim().toLowerCase();
+  const password = String(body.password ?? '').trim();
 
-    if (existing) {
-      throw new UnauthorizedException('Usuário já existe');
-    }
-
-    const user = await this.usersService.create(data);
-
-    return user;
+  if (!full_name || !email || !password) {
+    throw new BadRequestException(
+      'Nome completo, email e senha são obrigatórios.',
+    );
   }
+
+  const existing = await this.usersService.findByEmail(email);
+
+  if (existing) {
+    throw new BadRequestException('Email já cadastrado.');
+  }
+
+  const user = await this.usersService.create({
+    full_name,
+    email,
+    password,
+    category: body.category ?? 'driver',
+    platform_origin: body.platform_origin ?? 'web',
+  });
+
+  const { password: _password, ...safeUser } = user;
+
+  return {
+    message: 'Usuário criado com sucesso',
+    user: safeUser,
+  };
+ }
 }
