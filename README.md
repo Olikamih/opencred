@@ -1,98 +1,184 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+OpenCred - Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📌 Sobre o Projeto
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+O OpenCred é uma plataforma de análise de crédito inteligente desenvolvida para facilitar a avaliação financeira de usuários de forma simples, rápida e acessível.
 
-## Description
+Nosso sistema permite que usuários realizem cadastro, acompanhem seu score financeiro, visualizem saldo, créditos disponíveis e histórico de transações, oferecendo uma experiência moderna e intuitiva.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este repositório contém a API RESTful responsável pela autenticação, gerenciamento de usuários, cálculo de score e controle financeiro da plataforma.
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+# 🎯 Problema Identificado
 
-## Compile and run the project
+Muitas pessoas possuem dificuldade em entender sua saúde financeira e seu potencial de crédito, principalmente pela falta de transparência dos sistemas tradicionais.
 
-```bash
-# development
-$ npm run start
+Além disso, instituições financeiras frequentemente utilizam processos complexos e pouco acessíveis para análise de crédito.
 
-# watch mode
-$ npm run start:dev
+O OpenCred surge para simplficar esse processo.
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+# 👥 Público-Alvo
 
-```bash
-# unit tests
-$ npm run test
+- Pessoas que desejam acompanhar seu score financeiro
+- Usuários que buscam melhor controle de crédito pessoal
+- Pequenos empreendedores
+- Jovens iniciando vida financeira
+- Plataformas que necessitam de análise simplificada de crédito
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
-```
+# 🚀 Solução Proposta
 
-## Deployment
+Criamos uma plataforma com:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- Cadastro e login seguro com JWT
+- Dashboard financeiro
+- Score de crédito visual
+- Controle de saldo e créditos
+- Histórico de transações
+- Sistema preparado para expansão futura
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+---
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+# ✨ Diferenciais
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- Interface simples e intuitiva
+- Score visual e fácil de entender
+- Estrutura escalável
+- API segura com autenticação JWT
+- Backend preparado para deploy em nuvem
+- Integração com PostgreSQL
+- Separação clara entre frontend e backend
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+# 🏗 Arquitetura
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```text
+Frontend (React + Vite)
+        ↓
+API REST (NestJS)
+        ↓
+Banco de Dados (PostgreSQL)
+        ↓
+Deploy Cloud (Railway)
+⚙ Tecnologias Utilizadas
+Backend
+Node.js
+NestJS
+TypeScript
+TypeORM
+PostgreSQL
+JWT Authentication
+bcrypt
+Railway (Deploy)
+📁 Estrutura do Projeto
+src/
+├── auth/
+├── users/
+├── transactions/
+├── score/
+├── app.module.ts
+├── main.ts
+🔐 Funcionalidades
+Autenticação
+POST /auth/register
 
-## Support
+Cadastro de novo usuário
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+POST /auth/login
 
-## Stay in touch
+Login com geração de token JWT
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Usuários
+GET /users/profile
 
-## License
+Retorna dados do usuário autenticado
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Score
+GET /transactions/score/:id
+
+Retorna score financeiro do usuário
+
+Dashboard
+saldo atual
+créditos disponíveis
+score financeiro
+movimentações
+▶ Como Executar Localmente
+1. Clone o projeto
+git clone <repositorio>
+cd opencred-backend
+2. Instale as dependências
+npm install
+3. Configure o arquivo .env
+DATABASE_URL=
+JWT_SECRET=
+PORT=3000
+4. Execute o projeto
+npm run start:dev
+
+ou
+
+npm run build
+npm run start
+☁ Deploy
+
+Deploy realizado utilizando:
+
+Railway (Backend + PostgreSQL)
+📄 Modelo de Score
+
+O score é calculado com base em:
+
+saldo disponível
+histórico financeiro
+movimentações
+créditos utilizados
+consistência de operações
+Exemplo simplificado:
+Base inicial: 300 pontos
+
++ saldo positivo
++ movimentações consistentes
+- uso excessivo de crédito
+- saldo negativo
+⚖ Decisões Técnicas
+NestJS
+
+Escolhido pela organização modular, escalabilidade e facilidade de manutenção.
+
+PostgreSQL
+
+Banco robusto e confiável para aplicações financeiras.
+
+Railway
+
+Deploy rápido e integração simples com PostgreSQL.
+
+⚠ Limitações
+Sem integração bancária real
+Score ainda em modelo simplificado
+Sem envio real de créditos externos
+Sem sistema de notificações
+🔮 Melhorias Futuras
+Open Finance
+integração com PIX
+análise com IA
+machine learning para score avançado
+notificações automáticas
+histórico financeiro detalhado
+painel administrativo
+🎥 Pitch
+
+O projeto foi desenvolvido também com foco em apresentação prática contendo:
+
+problema
+solução
+público-alvo
+demonstração
+diferenciais
+arquitetura
